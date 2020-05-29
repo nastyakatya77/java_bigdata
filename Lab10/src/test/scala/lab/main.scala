@@ -13,12 +13,12 @@ object main_lab
     val datafile = spark.read
       .format("com.databricks.spark.csv")
       .option("header",true)
-      .load("c:/Projects/school/Java/Lab10/netflix_titles.csv")
+      .load("c:/Projects/Java_N/java_bigdata/Lab10/AnimalBites.csv")
     //datafile.show()
-    datafile.createOrReplaceTempView("netflix")
+    datafile.createOrReplaceTempView("bites")
 
-    spark.sql("SELECT title, type, rating, release_year FROM netflix WHERE release_year = 2020").show()
-    spark.sql("SELECT director, COUNT(show_id) FROM netflix GROUP BY director").show()
+    spark.sql("SELECT count(SpeciesIDDesc) as amount, SpeciesIDDesc FROM bites GROUP BY SpeciesIDDesc ORDER BY amount").show()
+    spark.sql("SELECT count(GenderIDDesc), GenderIDDesc FROM bites GROUP BY GenderIDDesc ORDER BY GenderIDDesc").show()
 
     spark.stop()
   }
